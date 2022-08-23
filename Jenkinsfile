@@ -1,8 +1,10 @@
 pipeline {
   agent {
     kubernetes {
-      yaml """
+      yaml '''
 kind: Pod
+metadata:
+  name: kaniko
 spec:
   containers:
   - name: kaniko
@@ -13,8 +15,8 @@ spec:
         cpu: "1000m"
         memory: "2Gi"
       requests:
-        cpu: "500m"
-        memory: "512Mi"
+        cpu: "1000m"
+        memory: "2Gi"
     command:
     - sleep
     args:
@@ -23,15 +25,15 @@ spec:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
   - name:  jnlp
-    image: jenkins/inbound-agent:4.11-1-jdk11
+    image: jenkins/inbound-agent:4.13.2-1-jdk11
     imagePullPolicy: IfNotPresent
     resources:
       limits:
         cpu: "1000m"
         memory: "2Gi"
       requests:
-        cpu: "500m"
-        memory: "512Mi"
+        cpu: "1000m"
+        memory: "2Gi"
     command:
   volumes:
   - name: jenkins-docker-cfg
@@ -42,15 +44,25 @@ spec:
           items:
             - key: .dockerconfigjson
               path: config.json
-"""
+'''
     }
   }
   stages {
     stage('Build with Kaniko') {
       steps {
+        script {
+          env.TAG = sh(script:"git describe 2>/dev/null | sed 's/[^0-9\\.]*//g'", returnStdout: true).trim()
+        }
         container(name: 'kaniko', shell: '/busybox/sh') {
           sh '''#!/busybox/sh
-            /kaniko/executor --context `pwd` --force --destination dniasoff/jenkins-inbound-agent-centos-stream8:latest
+            if [ -n "$TAG" ]; then
+              /kaniko/executor --context `pwd` --force \
+                --destination qumulus/jenkins-inbound-agent-centos-stream8:latest \
+                --destination qumulus/jenkins-inbound-agent-centos-stream8:$TAG
+            else
+              /kaniko/executor --context `pwd` --force \
+                --destination qumulus/jenkins-inbound-agent-centos-stream8:latest
+            fi
           '''
         }
       }
