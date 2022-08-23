@@ -111,7 +111,8 @@ RUN groupadd -g 1000 ${user} &&\
     chmod +x /usr/local/bin/jenkins-agent &&\
     ln -s /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-slave &&\
     dnf -y update &&\
-    dnf -y clean all
+    dnf -y clean all &&\
+    gem install package_cloud
 
 USER ${user}
 
