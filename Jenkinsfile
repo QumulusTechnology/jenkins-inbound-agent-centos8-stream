@@ -40,7 +40,7 @@ spec:
     projected:
       sources:
       - secret:
-          name: docker-credentials
+          name: qumulus-repo-docker-credentials
           items:
             - key: .dockerconfigjson
               path: config.json
@@ -57,11 +57,11 @@ spec:
           sh '''#!/busybox/sh
             if [ -n "$TAG" ]; then
               /kaniko/executor --context `pwd` --force \
-                --destination qumulus/jenkins-inbound-agent-centos-stream8:latest \
-                --destination qumulus/jenkins-inbound-agent-centos-stream8:$TAG
+                --destination repo.qumulus.io/jenkins/jenkins-inbound-agent-centos-stream8:latest \
+                --destination repo.qumulus.io/jenkins/jenkins-inbound-agent-centos-stream8:$TAG
             else
               /kaniko/executor --context `pwd` --force \
-                --destination qumulus/jenkins-inbound-agent-centos-stream8:latest
+                --destination repo.qumulus.io/jenkins/jenkins-inbound-agent-centos-stream8:latest
             fi
           '''
         }
