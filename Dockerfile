@@ -77,6 +77,7 @@ RUN groupadd -g 1000 ${user} &&\
                     curl \
                     unzip \
                     gnupg \
+                    jq \
                     java-11-openjdk.x86_64 \
                     yum-utils &&\
                     yum remove docker \
