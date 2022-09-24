@@ -45,6 +45,7 @@ RUN groupadd -g 1000 ${user} &&\
     dnf -y update &&\
     dnf group install -y "Development Tools" &&\
     dnf install -y --enablerepo=epel --enablerepo=powertools \
+                    sudo \
                     gcc \
                     make \
                     autoconf \
