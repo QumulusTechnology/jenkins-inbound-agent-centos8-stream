@@ -38,6 +38,8 @@ ARG user=jenkins
 
 RUN groupadd -g 1000 ${user} &&\
     useradd ${user} -u 1000 -g 1000 -c "Jenkins user" -d /var/lib/jenkins &&\
+    groupadd -g 982 docker &&\
+    usermod -aG docker ${user} &&\
     dnf -y clean all &&\
     dnf -y install epel-release &&\
     dnf -y update &&\
@@ -45,15 +47,15 @@ RUN groupadd -g 1000 ${user} &&\
     dnf install -y --enablerepo=epel --enablerepo=powertools \
                     gcc \
                     make \
-                    autoconf \ 
+                    autoconf \
                     automake \
-                    libtool \ 
+                    libtool \
                     rpm-build \
                     libtirpc-devel \
                     libblkid-devel \
                     libuuid-devel \
                     libudev-devel \
-                    openssl-devel \ 
+                    openssl-devel \
                     zlib-devel \
                     libaio-devel \
                     libattr-devel \
@@ -118,4 +120,3 @@ RUN groupadd -g 1000 ${user} &&\
 USER ${user}
 
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
-
