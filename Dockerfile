@@ -118,6 +118,8 @@ RUN groupadd -g 1000 ${user} &&\
     dnf -y clean all &&\
     gem install package_cloud
 
-USER ${user}
+#USER ${user}
+
+USER root
 
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
