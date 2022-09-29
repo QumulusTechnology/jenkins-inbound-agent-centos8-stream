@@ -32,6 +32,7 @@ ARG version
 ARG terraform_version
 ARG packer_version
 ARG helm_version
+ARG docker_version
 
 LABEL Description="This is a base image, which allows connecting Jenkins agents via JNLP protocols" Vendor="Jenkins project" Version="$version"
 
