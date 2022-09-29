@@ -24,6 +24,7 @@ ARG version=4.10-2-jdk11
 ARG terraform_version=1.1.4
 ARG packer_version=1.7.9
 ARG helm_version=3.8.0
+ARG docker_version=20.10.9
 
 FROM quay.io/centos/centos:stream8
 
@@ -100,10 +101,10 @@ RUN groupadd -g 1000 ${user} &&\
     npm update -g &&\
     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo &&\
     dnf install -y yarn &&\
-    wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.9.tgz &&\
-    tar xzvf docker-20.10.9.tgz &&\
+    wget https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz &&\
+    tar xzvf docker-${docker_version}.tgz &&\
     cp docker/* /usr/local/bin &&\
-    rm -r docker docker-20.10.9.tgz &&\
+    rm -r docker docker-${docker_version}.tgz &&\
     wget https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip &&\
     unzip terraform_${terraform_version}_linux_amd64.zip &&\
     mv terraform /usr/local/bin/terraform &&\
