@@ -42,6 +42,7 @@ RUN groupadd -g 1000 ${user} &&\
     usermod -aG docker ${user} &&\
     dnf -y clean all &&\
     dnf -y install epel-release &&\
+    dnf -y config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo &&\
     dnf -y update &&\
     dnf group install -y "Development Tools" &&\
     dnf install -y --enablerepo=epel --enablerepo=powertools \
@@ -84,7 +85,7 @@ RUN groupadd -g 1000 ${user} &&\
                     ansible \
                     java-11-openjdk.x86_64 \
                     yum-utils &&\
-                    yum remove docker \
+    yum remove docker \
                     docker-client \
                     docker-client-latest \
                     docker-common \
@@ -92,6 +93,8 @@ RUN groupadd -g 1000 ${user} &&\
                     docker-latest-logrotate \
                     docker-logrotate \
                     docker-engine &&\
+    dnf install docker-ce --nobest --allowerasing -y &&\
+    systemctl disable docker
     gem install package_cloud &&\
     curl -sL https://rpm.nodesource.com/setup_16.x | bash - &&\
     dnf install -y nodejs &&\
@@ -117,7 +120,7 @@ RUN groupadd -g 1000 ${user} &&\
     ln -s /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-slave &&\
     dnf -y update &&\
     dnf -y clean all &&\
-    gem install package_cloud
+    gem install package_cloud 
 
 #USER ${user}
 
