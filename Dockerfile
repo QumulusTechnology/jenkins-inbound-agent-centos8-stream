@@ -81,6 +81,7 @@ RUN groupadd -g 1000 ${user} &&\
                     unzip \
                     gnupg \
                     jq \
+                    ansible \
                     java-11-openjdk.x86_64 \
                     yum-utils &&\
                     yum remove docker \
