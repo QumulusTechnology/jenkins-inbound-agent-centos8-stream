@@ -93,8 +93,6 @@ RUN groupadd -g 1000 ${user} &&\
                     docker-latest-logrotate \
                     docker-logrotate \
                     docker-engine &&\
-    dnf install docker-ce --nobest --allowerasing -y &&\
-    systemctl disable docker &&\
     gem install package_cloud &&\
     curl -sL https://rpm.nodesource.com/setup_16.x | bash - &&\
     dnf install -y nodejs &&\
@@ -102,6 +100,9 @@ RUN groupadd -g 1000 ${user} &&\
     npm update -g &&\
     curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo &&\
     dnf install -y yarn &&\
+    wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.9.tgz &&\
+    tar xzvf docker-20.10.9.tgz &&\
+    cp docker/*  /usr/local/bin &&\
     wget https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip &&\
     unzip terraform_${terraform_version}_linux_amd64.zip &&\
     mv terraform /usr/local/bin/terraform &&\
