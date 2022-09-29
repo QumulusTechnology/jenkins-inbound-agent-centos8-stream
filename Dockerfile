@@ -94,7 +94,7 @@ RUN groupadd -g 1000 ${user} &&\
                     docker-logrotate \
                     docker-engine &&\
     dnf install docker-ce --nobest --allowerasing -y &&\
-    systemctl disable docker
+    systemctl disable docker &&\
     gem install package_cloud &&\
     curl -sL https://rpm.nodesource.com/setup_16.x | bash - &&\
     dnf install -y nodejs &&\
