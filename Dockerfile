@@ -103,7 +103,7 @@ RUN groupadd -g 1000 ${user} &&\
     wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.9.tgz &&\
     tar xzvf docker-20.10.9.tgz &&\
     cp docker/* /usr/local/bin &&\
-    rm docker-20.10.9.tgz &&\
+    rm -r docker docker-20.10.9.tgz &&\
     wget https://releases.hashicorp.com/terraform/${terraform_version}/terraform_${terraform_version}_linux_amd64.zip &&\
     unzip terraform_${terraform_version}_linux_amd64.zip &&\
     mv terraform /usr/local/bin/terraform &&\
