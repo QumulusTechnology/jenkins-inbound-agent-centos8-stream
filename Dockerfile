@@ -84,7 +84,6 @@ RUN groupadd -g 1000 ${user} &&\
                     unzip \
                     gnupg \
                     jq \
-                    ansible \
                     java-11-openjdk.x86_64 \
                     yum-utils &&\
     yum remove docker \
@@ -95,7 +94,8 @@ RUN groupadd -g 1000 ${user} &&\
                     docker-latest-logrotate \
                     docker-logrotate \
                     docker-engine &&\
-    ansible-galaxy collection install ansible.utils  &&\
+    pip3 install --upgrade pip &&\
+    pip3 install ansible netaddr &&\
     gem install package_cloud &&\
     curl -sL https://rpm.nodesource.com/setup_16.x | bash - &&\
     dnf install -y nodejs &&\
