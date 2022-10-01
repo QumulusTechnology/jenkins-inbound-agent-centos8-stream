@@ -79,6 +79,7 @@ RUN groupadd -g 1000 ${user} &&\
                     ruby \
                     ruby-devel \
                     gcc-c++ \
+                    ansible \
                     wget \
                     curl \
                     unzip \
@@ -94,8 +95,8 @@ RUN groupadd -g 1000 ${user} &&\
                     docker-latest-logrotate \
                     docker-logrotate \
                     docker-engine &&\
-    pip3 install --upgrade pip &&\
-    pip3 install ansible netaddr &&\
+    pip3.9 install --upgrade pip &&\
+    pip3.9 install netaddr &&\
     gem install package_cloud &&\
     curl -sL https://rpm.nodesource.com/setup_16.x | bash - &&\
     dnf install -y nodejs &&\
