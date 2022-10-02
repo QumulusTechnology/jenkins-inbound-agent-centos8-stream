@@ -96,7 +96,7 @@ RUN groupadd -g 1000 ${user} &&\
                     docker-logrotate \
                     docker-engine &&\
     pip3.9 install --upgrade pip &&\
-    pip3.9 install netaddr &&\
+    pip3.9 install netaddr docker==4.4.4 &&\
     gem install package_cloud &&\
     curl -sL https://rpm.nodesource.com/setup_16.x | bash - &&\
     dnf install -y nodejs &&\
