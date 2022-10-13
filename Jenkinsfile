@@ -13,10 +13,10 @@ spec:
     resources:
       limits:
         cpu: "1000m"
-        memory: "2Gi"
+        memory: "4Gi"
       requests:
         cpu: "1000m"
-        memory: "2Gi"
+        memory: "4Gi"
     command:
     - sleep
     args:
