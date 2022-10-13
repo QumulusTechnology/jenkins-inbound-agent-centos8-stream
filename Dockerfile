@@ -44,6 +44,8 @@ RUN groupadd -g 1000 ${user} &&\
     usermod -aG docker ${user} &&\
     dnf -y clean all &&\
     dnf -y install epel-release &&\
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc &&\
+    sudo dnf install -y https://packages.microsoft.com/config/rhel/8/packages-microsoft-prod.rpm &&\
     dnf -y config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo &&\
     dnf -y update &&\
     dnf group install -y "Development Tools" &&\
@@ -86,6 +88,7 @@ RUN groupadd -g 1000 ${user} &&\
                     gnupg \
                     jq \
                     java-11-openjdk.x86_64 \
+                    azure-cli \
                     yum-utils &&\
     yum remove docker \
                     docker-client \
